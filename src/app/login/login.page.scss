@@ -1,0 +1,54 @@
+ion-content {
+    --ion-background-color: #e9ffea;
+}
+
+ion-toolbar {
+    --ion-background-color: transparent;
+    --opacity: 0;
+}
+
+ion-card-title {
+    font-weight: 600;
+    margin-bottom: 20px;
+}
+
+ion-card-subtitle {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+
+
+// -------------------------------- own 
+
+
+ion-card {
+    border: 0 !important;
+    box-shadow: none !important;
+    border: none !important;
+    border-style: none !important;
+    position: relative;
+    text-align: center;
+    // border-top: 3px solid colorofyourchosing
+  }
+
+  .sign-btn {
+    margin-top: 30px;
+    text-align: center;
+  }
+
+  ion-button {
+    --background: #006120;
+    --ion-primary-color: #006120;
+    }
+
+
+
+      
+      #spinner {
+        margin: 20px;
+        color: #006120;  
+        width: 100px;
+        height: 100px;
+      }
+      

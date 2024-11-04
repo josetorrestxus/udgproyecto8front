@@ -1,0 +1,57 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Usuarios</ion-title>
+    <ion-buttons slot="end">
+      <ion-button id="addUserButton">Agregar usuario</ion-button>
+    </ion-buttons>
+
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-menu-button></ion-menu-button>
+      </ion-buttons>
+      <ion-title size="large" slot="start">Usuarios</ion-title>
+      <ion-buttons slot="end">
+        <ion-button id="addUserButton" >Agregar usuario</ion-button>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-header>
+  
+  <div id="container" [style.visibility]="!isWaiting ? 'visible' : 'hidden'">
+    <ion-card *ngFor="let item of users; let index">
+      <ion-icon name="people-circle-outline" slot="start" ></ion-icon>
+      <ion-card-header>
+        <ion-card-title>{{item.email}}</ion-card-title>
+        
+      </ion-card-header>
+    
+      <ion-card-content>
+        <ion-label>Nombre: {{item.name}}</ion-label><br>
+        <ion-label>Username: {{item.username}}</ion-label><br>
+        <ion-label>Admin: {{item.admin}}</ion-label><br>
+        <ion-label>_id: {{item._id}}</ion-label><br>
+      </ion-card-content>
+    
+      <ion-button fill="clear"  (click)="deleteUser(item)" >Eliminar</ion-button>
+    </ion-card>
+  </div>
+  <div id="spinnercontainer" [style.visibility]="isWaiting ? 'visible' : 'hidden'">
+    <ion-spinner id="spinner" name="bubbles" ></ion-spinner>
+  </div>
+
+  
+  <ion-alert
+    trigger="addUserButton"
+    header="Datos del nuevo usuario"
+    [buttons]="addUserButtons"
+    [inputs]="alertInputs"
+  ></ion-alert>
+
+</ion-content>

@@ -1,0 +1,103 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+        <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+      <ion-title slot="start">Registro de nuevo estudiante</ion-title>
+    <!--(ionInput)="handleInput($event)"     //para capturar letra por letra -->
+    
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-menu-button></ion-menu-button>
+      </ion-buttons>
+      <ion-title size="large" slot="start">Registro de nuevo estudiante</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  
+  <div id="container">
+   
+    <ion-card id="cardupdateuser" >
+          
+
+      <ion-card-header>
+        <ion-card-title class="ion-text-center">
+          Registro de usuario
+        </ion-card-title>
+        <ion-card-subtitle class="ion-text-center">
+          Favor de capturar toda la información.
+        </ion-card-subtitle>
+      </ion-card-header>
+      <ion-card-content>
+        <form  [formGroup]="fg" (ngSubmit)="submitStudent(fg.value)">
+        
+          <div class="wrapform" >
+
+            <ion-item>
+              <ion-input label="Código" labelPlacement="stacked" type="text" name="codigo" formControlName="codigo"                     ></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-input label="Correo" labelPlacement="stacked" type="text" name="correo" formControlName="correo" ></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-input label="Nombre" labelPlacement="stacked" type="text" name="nombre" formControlName="nombre" ></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-input label="Correo Institucional" labelPlacement="stacked" type="text" name="correoInstitucional" formControlName="correoInstitucional" ></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-input label="Admisión" labelPlacement="stacked" type="text" name="admision" formControlName="admision" ></ion-input>
+            </ion-item>
+
+
+            <ion-item>
+              <ion-input label="Estatus" labelPlacement="stacked" type="text" name="estatus" formControlName="estatus" ></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-input label="Nivel" labelPlacement="stacked" type="text" name="nivel" formControlName="nivel" ></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-input label="Situación" labelPlacement="stacked" type="text" name="situacion" formControlName="situacion" ></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-input label="Ciclos" labelPlacement="stacked" type="text" name="ciclos" formControlName="ciclos" ></ion-input>
+            </ion-item>
+
+
+            <ion-item>
+              <ion-input label="Último ciclo" labelPlacement="stacked" type="text" name="ultimoCiclo" formControlName="ultimoCiclo" ></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-input label="Carrera" labelPlacement="stacked" type="text" name="carrera" formControlName="carrera" ></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-input label="Sede" labelPlacement="stacked" type="text" name="sede" formControlName="sede" ></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-input label="Créditos" labelPlacement="stacked" type="text" name="creditos" formControlName="creditos" ></ion-input>
+            </ion-item>
+
+            <ion-item>
+              <ion-input label="Promedio" labelPlacement="stacked" type="text" name="promedio" formControlName="promedio" ></ion-input>
+            </ion-item>
+            
+          </div>
+          <div class="sign-btn">
+              <ion-button type="submit" shape="round"  [disabled]="!fg.valid">Registrar</ion-button>
+          </div>
+        </form>
+      
+    </ion-card-content>
+    
+
+    </ion-card>
+
+  </div>
+
+
+</ion-content>

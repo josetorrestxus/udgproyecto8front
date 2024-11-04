@@ -1,0 +1,119 @@
+<ion-header [translucent]="true" class="ion-no-border">
+  <ion-toolbar>
+    
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">login</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <div id="main">
+    <ion-grid>
+    <ion-row >
+    </ion-row>  
+    <ion-row size="auto">
+      <ion-col >
+      </ion-col>
+      <ion-col size="10"  size-sm="6" size-md="5" size-lg = "3">
+
+
+        <ion-card id="cardlogin" *ngIf="login">
+          <ion-img id="logo" class="ion-text-center"
+            src="../../assets/img/pexels-pixabay-256395.jpg"
+            alt="UDG Quimica logo"
+          ></ion-img>
+
+          <ion-card-header>
+            <ion-card-subtitle class="ion-text-center">
+              Aplicación para control escolar.
+            </ion-card-subtitle>
+
+          </ion-card-header>
+          <ion-card-content>
+            <form  [formGroup]="fg" (ngSubmit)="submit(fg.value)">
+            
+              <div class="wrapform" >
+
+                <ion-item>
+                  <ion-input label="Usuario o correo" labelPlacement="stacked" type="text" name="username" formControlName="username" required placeholder="Usuario o correo"></ion-input>
+                </ion-item>
+                <ion-item>
+                  <ion-input label="Password" labelPlacement="stacked" type="Password" name="password" formControlName="password" placeholder="***********"></ion-input>
+                </ion-item>
+
+              </div>
+              <div class="sign-btn">
+
+                  <ion-button type="submit" shape="round"  [disabled]="!fg.valid">Entrar</ion-button>
+                
+              </div>
+            </form>
+            
+          </ion-card-content>
+          <ion-footer [style.visibility]="isWaiting ? 'visible' : 'hidden'">
+              <ion-spinner id="spinner" name="bubbles" ></ion-spinner>
+          </ion-footer>
+
+        </ion-card>
+
+        <ion-card id="cardupdateuser" *ngIf="!login">
+          
+
+          <ion-card-header>
+            <ion-card-title class="ion-text-center">
+              Registro de usuario
+            </ion-card-title>
+            <ion-card-subtitle class="ion-text-center">
+              Favor de capturar su username, nombre personal y password.
+            </ion-card-subtitle>
+          </ion-card-header>
+          <ion-card-content>
+            <form  [formGroup]="fge" (ngSubmit)="submitUsr(fge.value)">
+            
+              <div class="wrapform" >
+
+                <ion-item>
+                  <ion-input label="Email"   [readonly]="true" labelPlacement="stacked" type="text" name="email" formControlName="email" required placeholder="Email o correo"></ion-input>
+                </ion-item>
+                <ion-item>
+                  <ion-input label="Username o clave de usuario" labelPlacement="stacked" type="text" name="username" formControlName="username" required placeholder="Username o clave de usuario"></ion-input>
+                </ion-item>
+                <ion-item>
+                  <ion-input label="Nombre" labelPlacement="stacked" type="text" name="name" formControlName="name" required placeholder="Nombre del usuario"></ion-input>
+                </ion-item>
+                <ion-item>
+                  <ion-input label="Password" labelPlacement="stacked" type="Password" name="password" formControlName="password" placeholder="***********"></ion-input>
+                </ion-item>
+                <ion-item>
+                  <ion-input label="Cofirme password" labelPlacement="stacked" type="Password" name="password2" formControlName="password2" placeholder="***********"></ion-input>
+                </ion-item>
+              </div>
+              <div class="sign-btn">
+                  <ion-button type="submit" shape="round"  [disabled]="!fg.valid">Registrar</ion-button>
+              </div>
+            </form>
+          
+        </ion-card-content>
+        
+
+        </ion-card>
+
+
+      </ion-col>
+      <ion-col >
+      </ion-col>
+    </ion-row>  
+    <ion-row >
+    </ion-row>  
+
+    </ion-grid>
+    
+    
+  </div>
+  
+
+</ion-content>

@@ -1,0 +1,7 @@
+{
+  "name": "alumnos",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular-standalone"
+}

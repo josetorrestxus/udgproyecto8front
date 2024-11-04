@@ -1,0 +1,58 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+        <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+      <ion-title slot="start">Estudiante - {{stName}}</ion-title>
+    <!--(ionInput)="handleInput($event)"     //para capturar letra por letra -->
+    
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-menu-button></ion-menu-button>
+      </ion-buttons>
+      <ion-title size="large" slot="start">Estudiante - detalle</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+
+  <div id="container">
+    
+    <ion-segment value="student" (ionChange)="onSegmentChange($event)">
+      <ion-segment-button value="student">
+        <ion-label>Estudiante</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="calificaciones">
+        <ion-label>Calificaciones</ion-label>
+      </ion-segment-button>
+    </ion-segment>
+    <hr>
+
+    <ion-list *ngIf="(section==='student')">
+      <ion-item *ngFor="let item of itemsStudent; let index">
+        <ion-label position>{{ item.key + ': '  + item.value }}</ion-label>
+      </ion-item>
+    </ion-list>
+
+    
+    <div class="tabledata" *ngIf="(section==='calificaciones')">
+      <ion-grid>
+        <ion-row nowrap class="table-headers">
+          <ion-col size={{hdr.size}} class="single-border" *ngFor="let hdr of calificacionesHeaders">
+            <strong>{{hdr.title}}</strong>
+          </ion-col>
+        </ion-row>
+        <ion-row nowrap class="tablecontent" *ngFor="let item of calificaciones">
+          <ion-col size={{fld.size}} *ngFor="let fld of calificacionesHeaders">{{ getV(item, fld) }}</ion-col>
+        </ion-row>
+      </ion-grid>
+    </div>
+
+      
+  </div>
+
+</ion-content>
