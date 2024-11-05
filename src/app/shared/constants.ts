@@ -31,10 +31,11 @@ const StudentFields_Calificaciones: Array<ITableData> = [
 
 
 const Fields_Calificaciones: Array<ITableData> = [
-    {title: "Codigo" , field: "codigo", size: 1},
-    {title: "Nombre" , field: "nombre", size: 1},
-    {title: "Materia" , field: "materia", size: 4},
-    {title: "Calificación" , field: "calificacion", size:2}
+    {title: "Ciclo" , field: "materia", size: 3},
+    {title: "Materia" , field: "materia", size: 3},
+    {title: "Codigo" , field: "codigo", size: 3},
+    {title: "Calificación" , field: "calificacion", size:3}
+    
 ]
     
 

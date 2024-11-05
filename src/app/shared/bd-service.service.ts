@@ -95,6 +95,42 @@ static _uriConection: string = URL
     })
   }
 
+  public register(student: object): Promise<any> {
+    return new Promise<any>((resolve, reject) => {
+      this.http.post(`${BdServiceService._uriConection}/student`, student)
+       .subscribe({
+          next: response => {
+            console.log('register')
+            resolve(response)
+          },
+          error: error => {
+            console.log('hubo un error----------------------------------------------------------------')
+            console.log(error)
+            reject(error)
+          }
+       })
+    })
+  }
+  public addGrade(ciclo: string, materia:string, codigo:string, calificacion:string): Promise<any> {
+    return new Promise<any>((resolve, reject) => {
+      this.http.post(`${BdServiceService._uriConection}/studentgrade`, {ciclo, materia, codigo, calificacion})
+       .subscribe({
+          next: response => {
+            console.log('addGrade')
+            resolve(response)
+          },
+          error: error => {
+            console.log('hubo un error----------------------------------------------------------------')
+            console.log(error)
+            reject(error)
+          }
+       })
+    })
+  }
+  
+
+
+
   public getUsers(): Promise<any> {
     return new Promise<any>((resolve, reject) => {
       this.http.get(`${BdServiceService._uriConection}/users`)

@@ -2,6 +2,8 @@ import { Component, OnInit, inject } from '@angular/core';
 import { InfiniteScrollCustomEvent, SegmentChangeEventDetail } from '@ionic/angular';
 import { ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators, FormControl, FormControlOptions } from '@angular/forms'
+import { Router } from '@angular/router';
+import { AlertController } from '@ionic/angular';
 
 //own 
 import { BdServiceService } from '../shared';
@@ -73,7 +75,11 @@ export class RegisterstudentItemPage implements OnInit {
   fge: any = undefined;
 
 
-  constructor(public fb: FormBuilder) {
+  constructor(
+    public fb: FormBuilder, 
+    private alertController: AlertController, 
+    private route: Router
+    ) {
     
    }
     
@@ -111,45 +117,51 @@ export class RegisterstudentItemPage implements OnInit {
   
   submitStudent(values:any){
 
-    /*
-   console.log(values);
-   let user:IUser  = {
-     email: values.username,
-     password: btoa(values.password)
+    console.log(values);
+    let student:IStudentRegister  = {
+      codigo: values.codigo, 
+      correo: values.correo, 
+      nombre: values.nombre,
+      correoInstitucional: values.correoInstitucional,
+      admision: values.admision,
+      estatus: values.estatus,
+      nivel: values.nivel, 
+      situacion: values.situacion,
+      ciclos: Number(values.ciclos),
+      ultimoCiclo: values.ultimoCiclo,
+      carrera: values.carrera,
+      sede: values.sede,    
+      creditos: Number(values.creditos),    
+      promedio: Number(values.promedio)    
    };
    this.isWaiting=true;
-   this.bdService.login(user)
+   this.bdservice.register(student)
    .then(response=>{
      this.isWaiting=false;
      // console.log(response);
-     let txt:string = atob(response.data);
-     // console.log(txt);
-     let usr: IUser = JSON.parse(txt)._doc;
-     // console.log(usr);
-     if (usr.email) {
-       //exists
-       if (usr.tmpid) {
-         // is new user
-         this.startEditUser(usr.email);
-       } else {
-         //login succeedd
-         console.log('entro ok login');
-         this.auth.setIsLoggedIn(true);
-         this.auth.setIsAdmin(!!usr.admin);
-         this.route.navigate(['/', 'estudiantes']);
-       }
- 
-     } else {
-       this.presentAlert('Usuario o password no reconocidos.');
-     }
+     this.presentAlert('El estudiante quedo registrado correctamente.');
+     this.route.navigate(['/', 'estudiantes']);
+
    })
    .catch(err=>{
      this.isWaiting=false;
-     this.presentAlert('Usuario o password no reconocidos');
+     this.presentAlert('Error al tratar de grabar');
    });
- */
-  }
+ }
  
+ 
+ async presentAlert(message: string = '', header:string = 'Registro', subHeader: string = '' , buttons: Array<any> = ['Ok']) {
+  const alert = await this.alertController.create({
+    header,
+    subHeader,
+    message,
+    buttons,
+  });
+
+  await alert.present();
+}
+
+
   
 
   loadData(id: string){
@@ -242,10 +254,6 @@ export class RegisterstudentItemPage implements OnInit {
       } 
     }
   } 
-
-  registrar () {
-    //save 
-  }
 
   getV(itm:any, fld:ITableData){
     return itm[fld.field as keyof typeof this.data]    

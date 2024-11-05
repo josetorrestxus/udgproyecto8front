@@ -38,7 +38,6 @@ export class GradesItemPage implements OnInit {
   private bdservice = inject(BdServiceService)
   private activatedRoute = inject(ActivatedRoute);
   
-
   section: string = "student";
   id: string = "";
   stName: string = "detalle";
@@ -46,6 +45,8 @@ export class GradesItemPage implements OnInit {
   codigo: string = '';
   itemsStudent: Array<IObjectMap>  = [];
   newItem: IStudentRegister = {};
+  materia: string = '';
+  ciclo: string = '';
 
   alumnoCalificacionesHeaders:Array<ITableData> = Fields_Calificaciones;
   alumnoCalificaciones: Array<object> = [];
@@ -53,9 +54,12 @@ export class GradesItemPage implements OnInit {
 
   
   validations = {
+    ciclo: [
+      {type: "required", message: "Favor de introducir ciclo"}
+    ],
     materia: [
-      {type: "required", message: "Favor de introducir codigo"}
-    ]
+      {type: "required", message: "Favor de introducir materia"}
+    ] 
   }
 
   fg: any = undefined;
@@ -67,18 +71,12 @@ export class GradesItemPage implements OnInit {
    }
     
   ngOnInit() {
-    this.id = this.activatedRoute.snapshot.paramMap.get('id') as string;
-    if (this.id) {
-      this.loadData(this.id);
-    }
-    
-
     this.fg = this.fb.group(
       {
-        materia: new FormControl('', Validators.compose([ Validators.required  ])) ,
+        ciclo: new FormControl('', Validators.compose([ Validators.required  ])) ,
+        materia: new FormControl('', Validators.compose([ Validators.required  ])) 
       }
     )
-
 
   }
 
@@ -112,19 +110,31 @@ export class GradesItemPage implements OnInit {
       role: 'confirm',
       handler: (alertData:any) => {
 
-        this.calificar(alertData.codigo, alertData.calificacion);
+        this.calificar(this.ciclo, this.materia, alertData.codigo, alertData.calificacion);
       },
     },
   ];
 
 
   submitStudent(values:any){
+    this.ciclo = values.ciclo
+    this.materia = values.materia
     this.presentAlert('Favor de capturar los datos', `Calificar materia de ${values.materia}` , '' , this.addCalificacionButtons, this.alertInputs)
   }
 
-  calificar(codigo:string, calificacion:string) {
+  calificar(ciclo: string, materia:string, codigo:string, calificacion:string) {
     if (codigo && calificacion) {
-      
+      this.bdservice.addGrade(ciclo, materia, codigo, calificacion)
+      .then( (response:any) =>{
+        this.alumnoCalificaciones.push (
+          {
+            ciclo, materia, codigo, calificacion
+          }
+        )
+      })
+      .catch( (err:any)=>{
+        this.presentAlert ('Error al registrar la calificación', 'Error')
+      })
 
     } else {
       this.presentAlert ('Código y calificación son requeridos', 'Error')
@@ -145,148 +155,7 @@ export class GradesItemPage implements OnInit {
   }
 
 
-  
-  submitStudentback(values:any){
-
-    /*
-   console.log(values);
-   let user:IUser  = {
-     email: values.username,
-     password: btoa(values.password)
-   };
-   this.isWaiting=true;
-   this.bdService.login(user)
-   .then(response=>{
-     this.isWaiting=false;
-     // console.log(response);
-     let txt:string = atob(response.data);
-     // console.log(txt);
-     let usr: IUser = JSON.parse(txt)._doc;
-     // console.log(usr);
-     if (usr.email) {
-       //exists
-       if (usr.tmpid) {
-         // is new user
-         this.startEditUser(usr.email);
-       } else {
-         //login succeedd
-         console.log('entro ok login');
-         this.auth.setIsLoggedIn(true);
-         this.auth.setIsAdmin(!!usr.admin);
-         this.route.navigate(['/', 'estudiantes']);
-       }
- 
-     } else {
-       this.presentAlert('Usuario o password no reconocidos.');
-     }
-   })
-   .catch(err=>{
-     this.isWaiting=false;
-     this.presentAlert('Usuario o password no reconocidos');
-   });
- */
-  }
- 
-  
-
-  loadData(id: string){
-    if (id) {
-
-      
-      /*
-      this.bdservice.getStudentByCode(id)
-      .then(response => {
-        console.log(response);
-        if (response.hasOwnProperty("data") ) {
-          this.data = response.data;
-          this.codigo = this.data["codigo" as keyof typeof this.data];
-          this.stName = `${this.codigo} - ${this.data["nombre" as keyof typeof this.data]}`;
-          if (response.data.calificaciones){
-            this.calificaciones = this.data["calificaciones" as keyof typeof this.data];
-          }
-          this.itemsStudent = this.chargeData(StudentFields, this.data);
-
-        }
-      })
-        */
-      
-      
-      
-    }
-  }
-
-  
-  setFieldName (key : string, ev: any) {
-    console.log(ev.detail.value);
-    switch (key) {
-      case 'codigo': {      
-        this.newItem ['codigo'] = ev.detail.value + '';
-        break;
-      } 
-      case 'correo': {
-        this.newItem ['correo'] = ev.detail.value + '';
-        break;
-      }  
-      case 'nombre': {
-        this.newItem ['nombre'] = ev.detail.value + '';
-        break;
-      } 
-      case 'correoInstitucional': {
-      this.newItem ['correoInstitucional'] = ev.detail.value + '';
-        break;
-      } 
-      case 'imageUrl': {
-      this.newItem ['imageUrl'] = ev.detail.value + '';
-        break;
-      } 
-      case 'admision': {
-      this.newItem ['admision'] = ev.detail.value + '';
-        break;
-      } 
-      case 'estatus': {
-      this.newItem ['estatus'] = ev.detail.value + '';
-        break;
-      } 
-      case 'nivel': {
-      this.newItem ['nivel'] = ev.detail.value + '';
-        break;
-      }  
-      case 'situacion': {
-      this.newItem ['situacion'] = ev.detail.value + '';
-        break;
-      } 
-      case 'ciclos': {
-      this.newItem ['ciclos'] = ev.detail.value + 0;
-        break;
-      } 
-      case 'ultimoCiclo': {
-      this.newItem ['ultimoCiclo'] = ev.detail.value + '';
-        break;
-      } 
-      case 'carrera': {
-      this.newItem ['carrera'] = ev.detail.value + '';
-        break;
-      } 
-      case 'sede': {
-      this.newItem ['sede'] = ev.detail.value + '';
-        break;
-      } 
-      case 'creditos': {
-      this.newItem ['creditos'] = ev.detail.value + 0;
-        break;
-      } 
-      case 'promedio': {
-      this.newItem ['promedio'] = ev.detail.value + 0;
-        break;
-      } 
-    }
-  } 
-
-  registrar () {
-    //save 
-  }
-
-  getV(itm:any, fld:ITableData){
+    getV(itm:any, fld:ITableData){
     return itm[fld.field as keyof typeof this.data]    
   }
 

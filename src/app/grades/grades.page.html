@@ -37,6 +37,9 @@
         <form  [formGroup]="fg" (ngSubmit)="submitStudent(fg.value)">
           <div class="wrapform" >
             <ion-item>
+              <ion-input label="Ciclo" labelPlacement="stacked" type="text" name="ciclo" formControlName="ciclo" ></ion-input>
+            </ion-item>
+            <ion-item>
               <ion-input label="Materia" labelPlacement="stacked" type="text" name="materia" formControlName="materia" ></ion-input>
             </ion-item>
           </div>
@@ -45,7 +48,7 @@
           </div>
         </form>
 
-        <div class="tabledata" *ngIf="(section==='calificaciones')">
+        <div class="tabledata">
           <ion-grid>
             <ion-row nowrap class="table-headers">
               <ion-col size={{hdr.size}} class="single-border" *ngFor="let hdr of alumnoCalificacionesHeaders">
